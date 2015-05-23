@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.sunshine.presenter.IPresenter;
 import com.android.sunshine.presenter.MainActivityFragmentPresenter;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class MainActivityFragment extends Fragment implements IMainView {
 
-    private final MainActivityFragmentPresenter presenter;
+    private final IPresenter presenter;
     private ListView listView;
 
     public MainActivityFragment() {
