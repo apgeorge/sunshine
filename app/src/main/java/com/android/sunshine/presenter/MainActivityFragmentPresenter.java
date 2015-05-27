@@ -6,15 +6,16 @@ import com.android.sunshine.service.WeatherService;
 import java.util.List;
 
 public class MainActivityFragmentPresenter implements IPresenter {
+    private final WeatherService weatherService;
     private IMainView view;
 
-    public MainActivityFragmentPresenter(IMainView view) {
+    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService) {
         this.view = view;
+        this.weatherService = weatherService;
     }
 
     @Override
     public void initialize() {
-        WeatherService weatherService = new WeatherService();
         List<String> weatherData = weatherService.getWeatherData();
         view.showWeather(weatherData);
     }

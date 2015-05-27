@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.android.sunshine.presenter.IPresenter;
 import com.android.sunshine.presenter.MainActivityFragmentPresenter;
+import com.android.sunshine.service.WeatherService;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
     private ListView listView;
 
     public MainActivityFragment() {
-        presenter = new MainActivityFragmentPresenter(this);
+        presenter = new MainActivityFragmentPresenter(this, new WeatherService());
     }
 
     @Override
