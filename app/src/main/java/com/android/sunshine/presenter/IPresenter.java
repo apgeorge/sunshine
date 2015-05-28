@@ -5,4 +5,6 @@ package com.android.sunshine.presenter;
  */
 public interface IPresenter {
     void initialize();
+
+    void getWeather();
 }

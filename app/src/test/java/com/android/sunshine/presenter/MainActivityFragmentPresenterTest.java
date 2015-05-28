@@ -18,12 +18,14 @@ public class MainActivityFragmentPresenterTest {
     private IMainView view;
     private WeatherService weatherService;
     private MainActivityFragmentPresenter presenter;
+    private WeatherFetcherTask weatherFetcherTask;
 
     @Before
     public void setUp() throws Exception {
         view = mock(IMainView.class);
         weatherService = mock(WeatherService.class);
-        presenter = new MainActivityFragmentPresenter(view, weatherService);
+        weatherFetcherTask = new StubWeatherFetcherTask();
+        presenter = new MainActivityFragmentPresenter(view, weatherService, weatherFetcherTask);
     }
 
     @Test
