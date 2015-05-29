@@ -1,17 +1,17 @@
 package com.android.sunshine.model;
 
-import android.test.InstrumentationTestCase;
+import android.support.test.runner.AndroidJUnit4;
 
 import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.core.Is.is;
 
-public class WeatherForecastTest extends InstrumentationTestCase {
-
-
+@RunWith(AndroidJUnit4.class)
+public class WeatherForecastTest {
     private WeatherForecast weatherForecast;
 
     @Before

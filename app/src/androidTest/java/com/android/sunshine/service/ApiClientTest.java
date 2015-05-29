@@ -1,22 +1,19 @@
 package com.android.sunshine.service;
 
-import com.android.sunshine.common.AppLogger;
+import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.HashMap;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 
+@RunWith(AndroidJUnit4.class)
 public class ApiClientTest {
-
-
-    @Test @Ignore("This test fails bcoz of Uri class not available on JVM and should be ITed on actual sdk")
-    public void testDoGet() throws Exception {
-        AppLogger.setLogger(mock(AppLogger.class));
+    @Test
+    public void shouldFetchGetRequests() throws Exception {
 
         String response = new ApiClient().doGet("http://www.google.com", new HashMap<String, String>());
 
