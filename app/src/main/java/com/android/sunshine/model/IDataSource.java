@@ -10,4 +10,6 @@ public interface IDataSource {
     List<IDataSource> getArrayObject(String key) throws DataSourceException;
 
     double getDouble(String key) throws DataSourceException;
+
+    Long getLong(String key) throws DataSourceException;
 }

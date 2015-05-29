@@ -57,4 +57,13 @@ public class JSONDataSource implements IDataSource {
             throw new DataSourceException(e);
         }
     }
+
+    @Override
+    public Long getLong(String key) throws DataSourceException {
+        try {
+            return jsonObject.getLong(key);
+        } catch (JSONException e) {
+            throw new DataSourceException(e);
+        }
+    }
 }

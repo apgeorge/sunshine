@@ -9,16 +9,27 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import util.Util;
+import util.time.MockClock;
+
 import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
 public class WeatherForecastTest {
+    private  MockClock mockClock;
     private WeatherForecast weatherForecast;
 
     @Before
     public void setUp() throws DataSourceException, JSONException {
+        setupMockClock();
         final JSONObject jsonObject = new JSONObject(getWeatherJson());
         weatherForecast = new WeatherForecast(new JSONDataSource(jsonObject));
+    }
+
+    private void setupMockClock() {
+        mockClock = new MockClock();
+        mockClock.setJulianDayForCurrentTime(2457172);
+        Util.setClock(mockClock);
     }
 
     @Test
@@ -39,6 +50,11 @@ public class WeatherForecastTest {
     @Test
     public void testMaxForDay() throws Exception {
         Assert.assertThat(weatherForecast.getMaxForDay(1), is(24.06));
+    }
+
+    @Test
+    public void testDayTextForDay() throws Exception {
+        Assert.assertThat(weatherForecast.getDays().get(1).getDay(), is("Sat May 30"));
     }
 
     @Test

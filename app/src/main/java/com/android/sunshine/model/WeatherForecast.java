@@ -3,6 +3,8 @@ package com.android.sunshine.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Util;
+
 public class WeatherForecast {
 
     private final IDataSource weatherJson;
@@ -22,10 +24,13 @@ public class WeatherForecast {
     }
 
     private List<DayWeatherForecast> getDayWeatherForecasts() throws DataSourceException {
+        int julianStartDay = Util.getClock().getJulianDayForCurrentTime();
+
         List<DayWeatherForecast> dayWeatherForecasts = new ArrayList<>();
-        List<IDataSource> list = weatherJson.getArrayObject("list");
-        for (IDataSource each : list) {
-            dayWeatherForecasts.add(new DayWeatherForecast(each));
+        List<IDataSource> days = weatherJson.getArrayObject("list");
+        for (IDataSource day : days) {
+            int julianDay = julianStartDay++;
+            dayWeatherForecasts.add(new DayWeatherForecast(day, Util.getClock().getOffsetFromEpochForJulianDay(julianDay)));
         }
         return dayWeatherForecasts;
     }
