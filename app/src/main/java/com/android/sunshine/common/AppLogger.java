@@ -22,4 +22,8 @@ public class AppLogger {
     public static void setLogger(AppLogger newAppLogger) {
         appLogger = newAppLogger;
     }
+
+    public int logVerbose(String logTag, String msg) {
+        return Log.v(logTag, msg);
+    }
 }

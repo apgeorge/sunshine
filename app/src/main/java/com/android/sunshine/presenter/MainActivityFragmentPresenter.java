@@ -19,17 +19,17 @@ public class MainActivityFragmentPresenter implements IPresenter {
 
     @Override
     public void initialize() {
-        fetchWeather(this.weatherFetcherTask);
+        fetchWeather(this.weatherFetcherTask, "94043");
     }
 
     @Override
-    public void fetchWeather(IWeatherFetcherTask weatherFetcherTask) {
-        weatherFetcherTask.doExecute(this);
+    public void fetchWeather(IWeatherFetcherTask weatherFetcherTask, String zip) {
+        weatherFetcherTask.doExecute(this, zip);
     }
 
     @Override
-    public List<String> getWeather() {
-        return weatherService.getWeatherData();
+    public List<String> getWeather(String zip) {
+        return weatherService.getWeatherData(zip);
     }
 
     @Override

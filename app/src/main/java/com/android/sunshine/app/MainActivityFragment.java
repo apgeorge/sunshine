@@ -58,7 +58,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            presenter.fetchWeather(new WeatherFetcherTask());
+            presenter.fetchWeather(new WeatherFetcherTask(), "94043");
             return true;
         }
         return super.onOptionsItemSelected(item);

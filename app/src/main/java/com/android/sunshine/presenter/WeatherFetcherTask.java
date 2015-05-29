@@ -6,15 +6,15 @@ import com.android.sunshine.app.IWeatherFetcherTask;
 
 import java.util.List;
 
-public class WeatherFetcherTask extends AsyncTask<Void, Void, List<String>> implements IWeatherFetcherTask {
+public class WeatherFetcherTask extends AsyncTask<String, Void, List<String>> implements IWeatherFetcherTask {
     protected IPresenter presenter;
 
     public WeatherFetcherTask() {
     }
 
     @Override
-    protected List<String> doInBackground(Void... params) {
-        return presenter.getWeather();
+    protected List<String> doInBackground(String... strings) {
+        return presenter.getWeather(strings[0]);
     }
 
     @Override
@@ -23,8 +23,8 @@ public class WeatherFetcherTask extends AsyncTask<Void, Void, List<String>> impl
     }
 
     @Override
-    public void doExecute(IPresenter presenter) {
+    public void doExecute(IPresenter presenter, String zip) {
         this.presenter = presenter;
-        execute();
+        execute(zip); //this is not being UTed
     }
 }

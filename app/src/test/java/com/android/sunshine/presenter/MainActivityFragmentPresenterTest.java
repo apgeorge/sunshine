@@ -38,7 +38,7 @@ public class MainActivityFragmentPresenterTest {
                 "Sat - YAY - 88/100",
                 "Sun - Sunny - 88/100"};
 
-        when(weatherService.getWeatherData()).thenReturn(Arrays.asList(expectedWeather));
+        when(weatherService.getWeatherData("94043")).thenReturn(Arrays.asList(expectedWeather));
 
         presenter.initialize();
 
@@ -51,6 +51,6 @@ public class MainActivityFragmentPresenterTest {
     {
         presenter.initialize();
 
-        verify(weatherService).getWeatherData();
+        verify(weatherService).getWeatherData("94043");
     }
 }

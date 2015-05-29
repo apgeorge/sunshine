@@ -21,6 +21,8 @@ public class ApiClient implements IApiClient {
         String response;
         try {
 
+            logger.logVerbose(LOG_TAG, url);
+
             urlConnection = createConnection(new URL(url), "GET");
 
             urlConnection.connect();
@@ -47,6 +49,7 @@ public class ApiClient implements IApiClient {
                 return null;
             }
             response = buffer.toString();
+            logger.logVerbose(LOG_TAG, response);
         } catch (IOException e) {
             logger.logError(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attemping
