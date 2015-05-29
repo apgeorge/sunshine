@@ -1,20 +1,19 @@
 package com.android.sunshine.model;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
 public class WeatherForecast {
 
-    private final JSONObject weatherJson;
+    private final IDataSource weatherJson;
 
-    public WeatherForecast(String weatherJson) throws JSONException {
-        this.weatherJson = new JSONObject(weatherJson);
+    public WeatherForecast(IDataSource dataSource) throws JSONException {
+        this.weatherJson = dataSource;
     }
 
-    public String getCity() throws JSONException {
-        return weatherJson.getJSONObject("city").getString("name");
+    public String getCity() throws DataSourceException {
+        return weatherJson.getObject("city").getString("name");
     }
 
     public List<DayWeatherForecast> getDays(){

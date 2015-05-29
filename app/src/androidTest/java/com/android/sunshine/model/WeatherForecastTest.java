@@ -3,6 +3,7 @@ package com.android.sunshine.model;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,8 @@ public class WeatherForecastTest {
 
     @Before
     public void setUp() throws JSONException {
-        weatherForecast = new WeatherForecast(getWeatherJson());
+        final JSONObject jsonObject = new JSONObject(getWeatherJson());
+        weatherForecast = new WeatherForecast(new JSONDataSource(jsonObject));
     }
 
     @Test
