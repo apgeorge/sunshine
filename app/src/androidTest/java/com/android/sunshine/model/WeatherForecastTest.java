@@ -16,7 +16,7 @@ public class WeatherForecastTest {
     private WeatherForecast weatherForecast;
 
     @Before
-    public void setUp() throws JSONException {
+    public void setUp() throws DataSourceException, JSONException {
         final JSONObject jsonObject = new JSONObject(getWeatherJson());
         weatherForecast = new WeatherForecast(new JSONDataSource(jsonObject));
     }

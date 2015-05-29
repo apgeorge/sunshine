@@ -1,16 +1,16 @@
 package com.android.sunshine.model;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherForecast {
 
     private final IDataSource weatherJson;
+    private final List<DayWeatherForecast> dayWeatherForecasts;
 
-    public WeatherForecast(IDataSource dataSource) throws JSONException {
+    public WeatherForecast(IDataSource dataSource) throws DataSourceException {
         this.weatherJson = dataSource;
+        dayWeatherForecasts = getDayWeatherForecasts();
     }
 
     public String getCity() throws DataSourceException {
@@ -18,6 +18,10 @@ public class WeatherForecast {
     }
 
     public List<DayWeatherForecast> getDays() throws DataSourceException {
+        return dayWeatherForecasts;
+    }
+
+    private List<DayWeatherForecast> getDayWeatherForecasts() throws DataSourceException {
         List<DayWeatherForecast> dayWeatherForecasts = new ArrayList<>();
         List<IDataSource> list = weatherJson.getArrayObject("list");
         for (IDataSource each : list) {

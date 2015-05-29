@@ -2,19 +2,20 @@ package com.android.sunshine.model;
 
 public class DayWeatherForecast {
 
+    private final IDataSource temp;
     private IDataSource dataSource;
 
-    public DayWeatherForecast(IDataSource dataSource) {
-
+    public DayWeatherForecast(IDataSource dataSource) throws DataSourceException {
         this.dataSource = dataSource;
+        this.temp = dataSource.getObject("temp");
     }
 
     public double getMin() throws DataSourceException {
-        return dataSource.getObject("temp").getDouble("min");
+        return temp.getDouble("min");
     }
 
     public double getMax() throws DataSourceException {
-        return dataSource.getObject("temp").getDouble("max");
+        return temp.getDouble("max");
     }
 
     public String getMain() throws DataSourceException {
