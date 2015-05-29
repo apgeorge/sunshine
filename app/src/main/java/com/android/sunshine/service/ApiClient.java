@@ -8,15 +8,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+
+import util.Util;
 
 public class ApiClient implements IApiClient {
     private static final String LOG_TAG = ApiClient.class.getSimpleName();
     private AppLogger logger = AppLogger.getLogger();
 
     @Override
-    public String doGet(String url) {
+    public String doGet(String baseURL, HashMap<String, String> urlParams) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
+
+        String url = Util.urlMaker().getUrl(baseURL, urlParams);
 
         String response;
         try {
