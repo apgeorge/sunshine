@@ -4,6 +4,6 @@ public class StubWeatherFetcherTask extends WeatherFetcherTask {
     @Override
     public void doExecute(IPresenter presenter) {
         this.presenter = presenter;
-        doInBackground();
+        onPostExecute(doInBackground());
     }
 }

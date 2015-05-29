@@ -1,10 +1,15 @@
 package com.android.sunshine.presenter;
 
-/**
- * Created by aroj on 23/05/15.
- */
+import com.android.sunshine.app.IWeatherFetcherTask;
+
+import java.util.List;
+
 public interface IPresenter {
     void initialize();
 
-    void getWeather();
+    void fetchWeather(IWeatherFetcherTask weatherFetcherTask);
+
+    List<String> getWeather();
+
+    void updateView(List<String> weatherData);
 }
