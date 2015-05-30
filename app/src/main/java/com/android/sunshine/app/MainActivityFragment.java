@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.sunshine.model.WeatherForecastFactory;
 import com.android.sunshine.presenter.IPresenter;
 import com.android.sunshine.presenter.MainActivityFragmentPresenter;
 import com.android.sunshine.presenter.WeatherFetcherTask;
@@ -29,7 +30,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
     private ListView listView;
 
     public MainActivityFragment() {
-        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient()), new WeatherFetcherTask());
+        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new WeatherFetcherTask());
     }
 
     @Override

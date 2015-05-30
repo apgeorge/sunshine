@@ -1,6 +1,7 @@
 package com.android.sunshine.service;
 
 import com.android.sunshine.common.AppLogger;
+import com.android.sunshine.util.Util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,8 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-
-import util.Util;
 
 public class ApiClient implements IApiClient {
     private static final String LOG_TAG = ApiClient.class.getSimpleName();

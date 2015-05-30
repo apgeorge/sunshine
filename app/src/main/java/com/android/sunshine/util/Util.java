@@ -1,8 +1,8 @@
-package util;
+package com.android.sunshine.util;
 
 import com.android.sunshine.util.net.UrlMaker;
+import com.android.sunshine.util.time.Clock;
 
-import util.time.Clock;
 
 public class Util {
     private static Clock clock = new Clock();

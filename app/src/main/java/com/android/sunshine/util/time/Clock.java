@@ -1,4 +1,4 @@
-package util.time;
+package com.android.sunshine.util.time;
 
 import android.text.format.Time;
 

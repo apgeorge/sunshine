@@ -2,8 +2,14 @@ package com.android.sunshine.presenter;
 
 import com.android.sunshine.app.IMainView;
 import com.android.sunshine.app.IWeatherFetcherTask;
+import com.android.sunshine.model.DataSourceException;
+import com.android.sunshine.model.DayWeatherForecast;
+import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.service.WeatherService;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivityFragmentPresenter implements IPresenter {
@@ -29,7 +35,29 @@ public class MainActivityFragmentPresenter implements IPresenter {
 
     @Override
     public List<String> getWeather(String zip) {
-        return weatherService.getWeatherData(zip);
+        ArrayList<String> forecasts = null;
+        try {
+            WeatherForecast weatherData = weatherService.getWeatherData(zip);
+            forecasts = getFormattedWeatherData(weatherData);
+        } catch (DataSourceException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return forecasts;
+    }
+
+    private ArrayList<String> getFormattedWeatherData(WeatherForecast weatherData) {
+        ArrayList<String> forecasts = new ArrayList<>();
+
+        try {
+            for (DayWeatherForecast day : weatherData.getDays()) {
+                forecasts.add(String.format("%s - %s - %s/%s", day.getDay(), day.getMain(), Math.round(day.getMax()), Math.round(day.getMin())));
+            }
+        } catch (DataSourceException e) {
+            e.printStackTrace();
+        }
+        return forecasts;
     }
 
     @Override

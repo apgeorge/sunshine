@@ -1,4 +1,4 @@
-package util.time;
+package com.android.sunshine.util.time;
 
 public class MockClock extends Clock {
 
@@ -12,4 +12,6 @@ public class MockClock extends Clock {
     public void setJulianDayForCurrentTime(int julianDay) {
         currentJulianDay = julianDay;
     }
+
+
 }

@@ -14,6 +14,10 @@ public class JSONDataSource implements IDataSource {
         this.jsonObject = jsonObject;
     }
 
+    public JSONDataSource(String jsonString) throws JSONException {
+        this(new JSONObject(jsonString));
+    }
+
     @Override
     public IDataSource getObject(String key) throws DataSourceException {
         try {

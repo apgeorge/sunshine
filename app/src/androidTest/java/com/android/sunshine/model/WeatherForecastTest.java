@@ -2,15 +2,15 @@ package com.android.sunshine.model;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.android.sunshine.util.Util;
+import com.android.sunshine.util.time.MockClock;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import util.Util;
-import util.time.MockClock;
 
 import static org.hamcrest.core.Is.is;
 
@@ -54,7 +54,8 @@ public class WeatherForecastTest {
 
     @Test
     public void testDayTextForDay() throws Exception {
-        Assert.assertThat(weatherForecast.getDays().get(1).getDay(), is("Sat May 30"));
+        Assert.assertThat(weatherForecast.getDays().get(6).getDay(), is("Thu, Jun 4"));
+        Assert.assertThat(weatherForecast.getDays().get(1).getDay(), is("Sat, May 30"));
     }
 
     @Test

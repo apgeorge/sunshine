@@ -5,13 +5,13 @@ import java.text.SimpleDateFormat;
 public class DayWeatherForecast {
 
     private final IDataSource temp;
-    private final String dateString;
     private IDataSource dataSource;
+    private long dateTime;
 
     public DayWeatherForecast(IDataSource dataSource, long dateTime) throws DataSourceException {
         this.dataSource = dataSource;
+        this.dateTime = dateTime;
         this.temp = dataSource.getObject("temp");
-        dateString = getReadableDateString(dateTime);
     }
 
     public double getMin() throws DataSourceException {
@@ -19,7 +19,7 @@ public class DayWeatherForecast {
     }
 
     public String getDay() {
-        return dateString;
+        return getReadableDateString(dateTime);
     }
 
     public double getMax() throws DataSourceException {
@@ -31,7 +31,7 @@ public class DayWeatherForecast {
     }
 
     private String getReadableDateString(long time){
-        SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
+        SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE, MMM d");
         return shortenedDateFormat.format(time);
     }
 

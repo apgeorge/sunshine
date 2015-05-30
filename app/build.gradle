@@ -30,4 +30,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.9.5'
     androidTestCompile 'com.android.support.test:runner:0.2'
+    testCompile 'com.fasterxml.jackson.jr:jackson-jr-objects:2.6.0-rc1'
+    testCompile 'joda-time:joda-time:2.8'
 }

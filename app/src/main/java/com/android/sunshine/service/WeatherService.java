@@ -1,8 +1,12 @@
 package com.android.sunshine.service;
 
-import java.util.Arrays;
+import com.android.sunshine.model.DataSourceException;
+import com.android.sunshine.model.WeatherForecast;
+import com.android.sunshine.model.WeatherForecastFactory;
+
+import org.json.JSONException;
+
 import java.util.HashMap;
-import java.util.List;
 
 public class WeatherService {
 
@@ -14,20 +18,22 @@ public class WeatherService {
     public static final String MODE_PARAM = "mode";
     public static final String UNITS_PARAM = "units";
     public static final String CNT_PARAM = "cnt";
+    private final WeatherForecastFactory weatherForecastFactory;
     private IApiClient apiClient;
 
-    public WeatherService(IApiClient apiClient) {
+    public WeatherService(IApiClient apiClient, WeatherForecastFactory weatherForecastFactory) {
         this.apiClient = apiClient;
+        this.weatherForecastFactory = weatherForecastFactory;
     }
 
-    public List<String> getWeatherData(String zip) {
+    public WeatherForecast getWeatherData(String zip) throws DataSourceException, JSONException {
         HashMap<String, String> urlParams = new HashMap<>();
         urlParams.put(QUERY_PARAM, zip);
         urlParams.put(MODE_PARAM, FORMAT);
         urlParams.put(UNITS_PARAM, UNIT);
         urlParams.put(CNT_PARAM, String.valueOf(COUNT));
         String response = apiClient.doGet(BASE_URL, urlParams);
-        return Arrays.asList(response);
+        return weatherForecastFactory.createWeatherForecast(response);
     }
 
 }

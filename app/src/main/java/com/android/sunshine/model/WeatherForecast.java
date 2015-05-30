@@ -1,9 +1,9 @@
 package com.android.sunshine.model;
 
+import com.android.sunshine.util.Util;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import util.Util;
 
 public class WeatherForecast {
 
