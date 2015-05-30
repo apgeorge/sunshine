@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.android.sunshine.app.DetailActivity;
+import com.android.sunshine.app.SettingsActivity;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,5 +24,13 @@ public class IntentFactoryTest {
 
         Assert.assertThat(detailActivityIntent.getStringExtra(Intent.EXTRA_TEXT), is("some data"));
         Assert.assertThat(detailActivityIntent.getComponent().getShortClassName(), is(DetailActivity.class.getName()));
+    }
+
+    @Test
+    public void shouldCreateSettingsActivityIntent() throws Exception {
+        Intent settings = new IntentFactory().createSettingsIntent(
+                InstrumentationRegistry.getInstrumentation().getContext());
+
+        Assert.assertThat(settings.getComponent().getShortClassName(), is(SettingsActivity.class.getName()));
     }
 }

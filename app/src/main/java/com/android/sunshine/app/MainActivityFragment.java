@@ -71,6 +71,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
             presenter.fetchWeather(new WeatherFetcherTask(), "94043");
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

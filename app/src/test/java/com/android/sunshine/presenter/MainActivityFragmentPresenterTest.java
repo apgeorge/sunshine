@@ -44,6 +44,7 @@ public class MainActivityFragmentPresenterTest {
         intentFactory = mock(IntentFactory.class);
         mockContext = mock(Context.class);
         presenter = new MainActivityFragmentPresenter(view, weatherService, weatherFetcherTask, intentFactory);
+        when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
     }
 
     private void setupMockClock() {
@@ -62,8 +63,6 @@ public class MainActivityFragmentPresenterTest {
                 "Wed, Jun 3 - Rain - 19/10",
                 "Thu, Jun 4 - Clear - 21/11"};
 
-        when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
-
         presenter.initialize(mockContext);
 
         verify(view).showWeather(Arrays.asList(expectedWeather));
@@ -77,8 +76,6 @@ public class MainActivityFragmentPresenterTest {
 
     @Test
     public void shouldCallWeatherServiceOnInitialize() throws DataSourceException, JSONException, IOException {
-        when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
-
         presenter.initialize(mockContext);
 
         verify(weatherService).getWeatherData("94043");
@@ -86,7 +83,6 @@ public class MainActivityFragmentPresenterTest {
 
     @Test
     public void shouldLaunchDetailView() throws DataSourceException, IOException, JSONException {
-        when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
         Intent mockDetailActivityIntent = mock(Intent.class);
         when(intentFactory.createDetailActivityIntent(mockContext,"Sun, May 31 - Clear - 26/10")).thenReturn(mockDetailActivityIntent);
         presenter.initialize(mockContext);

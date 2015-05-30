@@ -16,4 +16,5 @@ public interface IPresenter {
     void updateView(List<String> weatherData);
 
     void selectDay(int day);
+
 }
