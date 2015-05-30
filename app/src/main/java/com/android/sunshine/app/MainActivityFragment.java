@@ -1,5 +1,6 @@
 package com.android.sunshine.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,9 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.model.WeatherForecastFactory;
 import com.android.sunshine.presenter.IPresenter;
 import com.android.sunshine.presenter.MainActivityFragmentPresenter;
@@ -30,7 +33,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
     private ListView listView;
 
     public MainActivityFragment() {
-        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new WeatherFetcherTask());
+        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new WeatherFetcherTask(), new IntentFactory());
     }
 
     @Override
@@ -45,8 +48,14 @@ public class MainActivityFragment extends Fragment implements IMainView {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                presenter.selectDay(i);
+            }
+        });
 
-        presenter.initialize();
+        presenter.initialize(getActivity());
         return rootView;
     }
 
@@ -75,6 +84,11 @@ public class MainActivityFragment extends Fragment implements IMainView {
     public void showWeather(List<String> weatherData) {
         ArrayAdapter<String> adapter = createAdapter(weatherData);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void launchDetail(Intent detailActivityIntent) {
+        startActivity(detailActivityIntent);
     }
 
 

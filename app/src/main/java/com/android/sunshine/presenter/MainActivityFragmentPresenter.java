@@ -1,7 +1,10 @@
 package com.android.sunshine.presenter;
 
+import android.content.Context;
+
 import com.android.sunshine.app.IMainView;
 import com.android.sunshine.app.IWeatherFetcherTask;
+import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.model.DataSourceException;
 import com.android.sunshine.model.DayWeatherForecast;
 import com.android.sunshine.model.WeatherForecast;
@@ -13,18 +16,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivityFragmentPresenter implements IPresenter {
+    private final IntentFactory intentFactory;
+    private Context context;
     private final WeatherService weatherService;
     private final IWeatherFetcherTask weatherFetcherTask;
     private IMainView view;
+    private WeatherForecast weatherData;
+    private ArrayList<String> forecasts;
 
-    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IWeatherFetcherTask weatherFetcherTask) {
+    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IWeatherFetcherTask weatherFetcherTask, IntentFactory intentFactory) {
         this.view = view;
         this.weatherService = weatherService;
         this.weatherFetcherTask = weatherFetcherTask;
+        this.intentFactory = intentFactory;
     }
 
     @Override
-    public void initialize() {
+    public void initialize(Context context) {
+        this.context = context;
         fetchWeather(this.weatherFetcherTask, "94043");
     }
 
@@ -37,7 +46,7 @@ public class MainActivityFragmentPresenter implements IPresenter {
     public List<String> getWeather(String zip) {
         ArrayList<String> forecasts = null;
         try {
-            WeatherForecast weatherData = weatherService.getWeatherData(zip);
+            weatherData = weatherService.getWeatherData(zip);
             forecasts = getFormattedWeatherData(weatherData);
         } catch (DataSourceException e) {
             e.printStackTrace();
@@ -48,7 +57,7 @@ public class MainActivityFragmentPresenter implements IPresenter {
     }
 
     private ArrayList<String> getFormattedWeatherData(WeatherForecast weatherData) {
-        ArrayList<String> forecasts = new ArrayList<>();
+        forecasts = new ArrayList<>();
 
         try {
             for (DayWeatherForecast day : weatherData.getDays()) {
@@ -63,6 +72,11 @@ public class MainActivityFragmentPresenter implements IPresenter {
     @Override
     public void updateView(List<String> weatherData) {
         view.showWeather(weatherData);
+    }
+
+    @Override
+    public void selectDay(int day) {
+        view.launchDetail(intentFactory.createDetailActivityIntent(context, forecasts.get(day)));
     }
 
 }
