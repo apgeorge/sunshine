@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.android.sunshine.app.IMainView;
 import com.android.sunshine.app.factory.IntentFactory;
+import com.android.sunshine.common.UserPreferences;
 import com.android.sunshine.model.DataSourceException;
 import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.service.WeatherService;
@@ -33,7 +34,8 @@ public class MainActivityFragmentPresenterTest {
     private WeatherFetcherTask weatherFetcherTask;
     private MockClock mockClock;
     private IntentFactory intentFactory;
-    private Context mockContext;
+    private UserPreferences userPreferences;
+    private Context context;
 
     @Before
     public void setUp() throws Exception {
@@ -42,9 +44,11 @@ public class MainActivityFragmentPresenterTest {
         weatherService = mock(WeatherService.class);
         weatherFetcherTask = new StubWeatherFetcherTask();
         intentFactory = mock(IntentFactory.class);
-        mockContext = mock(Context.class);
-        presenter = new MainActivityFragmentPresenter(view, weatherService, weatherFetcherTask, intentFactory);
+        userPreferences = mock(UserPreferences.class);
+        context = mock(Context.class);
+        presenter = new MainActivityFragmentPresenter(view, weatherService, weatherFetcherTask, intentFactory, userPreferences, context);
         when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
+        when(userPreferences.getZip()).thenReturn("94043");
     }
 
     private void setupMockClock() {
@@ -63,7 +67,7 @@ public class MainActivityFragmentPresenterTest {
                 "Wed, Jun 3 - Rain - 19/10",
                 "Thu, Jun 4 - Clear - 21/11"};
 
-        presenter.initialize(mockContext);
+        presenter.initialize();
 
         verify(view).showWeather(Arrays.asList(expectedWeather));
 
@@ -76,7 +80,7 @@ public class MainActivityFragmentPresenterTest {
 
     @Test
     public void shouldCallWeatherServiceOnInitialize() throws DataSourceException, JSONException, IOException {
-        presenter.initialize(mockContext);
+        presenter.initialize();
 
         verify(weatherService).getWeatherData("94043");
     }
@@ -84,8 +88,8 @@ public class MainActivityFragmentPresenterTest {
     @Test
     public void shouldLaunchDetailView() throws DataSourceException, IOException, JSONException {
         Intent mockDetailActivityIntent = mock(Intent.class);
-        when(intentFactory.createDetailActivityIntent(mockContext,"Sun, May 31 - Clear - 26/10")).thenReturn(mockDetailActivityIntent);
-        presenter.initialize(mockContext);
+        when(intentFactory.createDetailActivityIntent(context, "Sun, May 31 - Clear - 26/10")).thenReturn(mockDetailActivityIntent);
+        presenter.initialize();
 
         presenter.selectDay(2);
 

@@ -26,17 +26,17 @@ public class MainActivityFragmentPresenter implements IPresenter {
     private WeatherForecast weatherData;
     private ArrayList<String> forecasts;
 
-    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IWeatherFetcherTask weatherFetcherTask, IntentFactory intentFactory, UserPreferences userPreferences) {
+    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IWeatherFetcherTask weatherFetcherTask, IntentFactory intentFactory, UserPreferences userPreferences, Context context) {
         this.view = view;
         this.weatherService = weatherService;
         this.weatherFetcherTask = weatherFetcherTask;
         this.intentFactory = intentFactory;
         this.userPreferences = userPreferences;
+        this.context = context;
     }
 
     @Override
-    public void initialize(Context context) {
-        this.context = context;
+    public void initialize() {
         fetchWeather(this.weatherFetcherTask);
     }
 

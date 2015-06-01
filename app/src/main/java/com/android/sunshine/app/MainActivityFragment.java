@@ -54,8 +54,8 @@ public class MainActivityFragment extends Fragment implements IMainView {
                 presenter.selectDay(i);
             }
         });
-        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new WeatherFetcherTask(), new IntentFactory(),new UserPreferences(getActivity()));
-        presenter.initialize(getActivity());
+        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new WeatherFetcherTask(), new IntentFactory(),new UserPreferences(getActivity()), getActivity());
+        presenter.initialize();
         return rootView;
     }
 
