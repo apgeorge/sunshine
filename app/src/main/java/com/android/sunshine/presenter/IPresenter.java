@@ -9,7 +9,7 @@ import java.util.List;
 public interface IPresenter {
     void initialize(Context context);
 
-    void fetchWeather(IWeatherFetcherTask weatherFetcherTask, String zip);
+    void fetchWeather(IWeatherFetcherTask weatherFetcherTask);
 
     List<String> getWeather(String zip);
 

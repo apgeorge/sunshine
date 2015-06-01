@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.sunshine.app.IMainView;
 import com.android.sunshine.app.IWeatherFetcherTask;
 import com.android.sunshine.app.factory.IntentFactory;
+import com.android.sunshine.common.UserPreferences;
 import com.android.sunshine.model.DataSourceException;
 import com.android.sunshine.model.DayWeatherForecast;
 import com.android.sunshine.model.WeatherForecast;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class MainActivityFragmentPresenter implements IPresenter {
     private final IntentFactory intentFactory;
+    private UserPreferences userPreferences;
     private Context context;
     private final WeatherService weatherService;
     private final IWeatherFetcherTask weatherFetcherTask;
@@ -24,22 +26,23 @@ public class MainActivityFragmentPresenter implements IPresenter {
     private WeatherForecast weatherData;
     private ArrayList<String> forecasts;
 
-    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IWeatherFetcherTask weatherFetcherTask, IntentFactory intentFactory) {
+    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IWeatherFetcherTask weatherFetcherTask, IntentFactory intentFactory, UserPreferences userPreferences) {
         this.view = view;
         this.weatherService = weatherService;
         this.weatherFetcherTask = weatherFetcherTask;
         this.intentFactory = intentFactory;
+        this.userPreferences = userPreferences;
     }
 
     @Override
     public void initialize(Context context) {
         this.context = context;
-        fetchWeather(this.weatherFetcherTask, "94043");
+        fetchWeather(this.weatherFetcherTask);
     }
 
     @Override
-    public void fetchWeather(IWeatherFetcherTask weatherFetcherTask, String zip) {
-        weatherFetcherTask.doExecute(this, zip);
+    public void fetchWeather(IWeatherFetcherTask weatherFetcherTask) {
+        weatherFetcherTask.doExecute(this, userPreferences.getZip());
     }
 
     @Override

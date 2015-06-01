@@ -30,11 +30,10 @@ import java.util.List;
  */
 public class MainActivityFragment extends Fragment implements IMainView {
 
-    private final IPresenter presenter;
+    private IPresenter presenter;
     private ListView listView;
 
     public MainActivityFragment() {
-        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new WeatherFetcherTask(), new IntentFactory());
     }
 
     @Override
@@ -55,7 +54,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
                 presenter.selectDay(i);
             }
         });
-
+        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new WeatherFetcherTask(), new IntentFactory(),new UserPreferences(getActivity()));
         presenter.initialize(getActivity());
         return rootView;
     }
@@ -69,7 +68,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            presenter.fetchWeather(new WeatherFetcherTask(), new UserPreferences(getActivity()).getZip());
+            presenter.fetchWeather(new WeatherFetcherTask());
             return true;
         }
 
@@ -84,6 +83,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
 
     @Override
     public void showWeather(List<String> weatherData) {
+        if (weatherData == null) return;
         ArrayAdapter<String> adapter = createAdapter(weatherData);
         listView.setAdapter(adapter);
     }
