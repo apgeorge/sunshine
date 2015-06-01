@@ -1,9 +1,7 @@
 package com.android.sunshine.app;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.sunshine.app.factory.IntentFactory;
+import com.android.sunshine.common.UserPreferences;
 import com.android.sunshine.model.WeatherForecastFactory;
 import com.android.sunshine.presenter.IPresenter;
 import com.android.sunshine.presenter.MainActivityFragmentPresenter;
@@ -71,18 +69,11 @@ public class MainActivityFragment extends Fragment implements IMainView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            presenter.fetchWeather(new WeatherFetcherTask(), getZipFromSharedPrefs());
+            presenter.fetchWeather(new WeatherFetcherTask(), new UserPreferences(getActivity()).getZip());
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private String getZipFromSharedPrefs() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String location = preferences.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default_value));
-        Toast.makeText(getActivity(), location,Toast.LENGTH_SHORT).show();
-        return location;
     }
 
 
