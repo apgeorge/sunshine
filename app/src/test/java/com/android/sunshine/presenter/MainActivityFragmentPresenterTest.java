@@ -36,6 +36,7 @@ public class MainActivityFragmentPresenterTest {
     private IntentFactory intentFactory;
     private UserPreferences userPreferences;
     private Context context;
+    private CommandFactory commandFactory;
 
     @Before
     public void setUp() throws Exception {
@@ -46,9 +47,11 @@ public class MainActivityFragmentPresenterTest {
         intentFactory = mock(IntentFactory.class);
         userPreferences = mock(UserPreferences.class);
         context = mock(Context.class);
-        presenter = new MainActivityFragmentPresenter(view, weatherService, weatherFetcherTask, intentFactory, userPreferences, context);
+        commandFactory = mock(CommandFactory.class);
+        presenter = new MainActivityFragmentPresenter(view, weatherService, intentFactory, userPreferences, context, commandFactory);
         when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
         when(userPreferences.getZip()).thenReturn("94043");
+        when(commandFactory.createWeatherFetcherCommand()).thenReturn(new StubWeatherFetcherTask());
     }
 
     private void setupMockClock() {

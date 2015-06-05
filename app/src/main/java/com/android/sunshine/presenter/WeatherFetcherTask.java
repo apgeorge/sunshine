@@ -2,14 +2,14 @@ package com.android.sunshine.presenter;
 
 import android.os.AsyncTask;
 
-import com.android.sunshine.app.IWeatherFetcherTask;
+import com.android.sunshine.app.ICommand;
 
 import java.util.List;
 
-public class WeatherFetcherTask extends AsyncTask<String, Void, List<String>> implements IWeatherFetcherTask {
+public class WeatherFetcherTask extends AsyncTask<String, Void, List<String>> implements ICommand {
     protected IPresenter presenter;
 
-    public WeatherFetcherTask() {
+    WeatherFetcherTask() {
     }
 
     @Override

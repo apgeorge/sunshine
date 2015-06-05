@@ -1,13 +1,13 @@
 package com.android.sunshine.presenter;
 
-import com.android.sunshine.app.IWeatherFetcherTask;
+import com.android.sunshine.app.ICommand;
 
 import java.util.List;
 
 public interface IPresenter {
     void initialize();
 
-    void fetchWeather(IWeatherFetcherTask weatherFetcherTask);
+    void fetchWeather();
 
     List<String> getWeather(String zip);
 

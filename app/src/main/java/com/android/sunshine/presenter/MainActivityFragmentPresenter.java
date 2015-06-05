@@ -3,7 +3,7 @@ package com.android.sunshine.presenter;
 import android.content.Context;
 
 import com.android.sunshine.app.IMainView;
-import com.android.sunshine.app.IWeatherFetcherTask;
+import com.android.sunshine.app.ICommand;
 import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.common.UserPreferences;
 import com.android.sunshine.model.DataSourceException;
@@ -18,30 +18,31 @@ import java.util.List;
 
 public class MainActivityFragmentPresenter implements IPresenter {
     private final IntentFactory intentFactory;
+    private final CommandFactory commandFactory;
     private UserPreferences userPreferences;
     private Context context;
     private final WeatherService weatherService;
-    private final IWeatherFetcherTask weatherFetcherTask;
     private IMainView view;
     private WeatherForecast weatherData;
     private ArrayList<String> forecasts;
 
-    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IWeatherFetcherTask weatherFetcherTask, IntentFactory intentFactory, UserPreferences userPreferences, Context context) {
+    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IntentFactory intentFactory, UserPreferences userPreferences, Context context, CommandFactory commandFactory) {
         this.view = view;
         this.weatherService = weatherService;
-        this.weatherFetcherTask = weatherFetcherTask;
         this.intentFactory = intentFactory;
         this.userPreferences = userPreferences;
         this.context = context;
+        this.commandFactory = commandFactory;
     }
 
     @Override
     public void initialize() {
-        fetchWeather(this.weatherFetcherTask);
+        fetchWeather();
     }
 
     @Override
-    public void fetchWeather(IWeatherFetcherTask weatherFetcherTask) {
+    public void fetchWeather() {
+        ICommand weatherFetcherTask = commandFactory.createWeatherFetcherCommand();
         weatherFetcherTask.doExecute(this, userPreferences.getZip());
     }
 
