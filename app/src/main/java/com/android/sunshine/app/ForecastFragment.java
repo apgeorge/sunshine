@@ -15,15 +15,15 @@ import android.widget.ListView;
 
 import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.command.CommandFactory;
-import com.android.sunshine.presenter.IPresenter;
-import com.android.sunshine.presenter.MainActivityFragmentPresenter;
+import com.android.sunshine.presenter.IForecastViewPresenter;
+import com.android.sunshine.presenter.ForecastViewPresenter;
 
 import java.util.List;
 
 
-public class ForecastFragment extends Fragment implements IMainView {
+public class ForecastFragment extends Fragment implements ForecastView {
 
-    private IPresenter presenter;
+    private IForecastViewPresenter presenter;
     private ListView listView;
 
     public ForecastFragment() {
@@ -47,7 +47,7 @@ public class ForecastFragment extends Fragment implements IMainView {
                 presenter.selectDay(i);
             }
         });
-        presenter = new MainActivityFragmentPresenter(this, new IntentFactory(),new UserPreferences(getActivity()), getActivity(), new CommandFactory());
+        presenter = new ForecastViewPresenter(this, new IntentFactory(),new UserPreferences(getActivity()), getActivity(), new CommandFactory());
         presenter.initialize();
         return rootView;
     }

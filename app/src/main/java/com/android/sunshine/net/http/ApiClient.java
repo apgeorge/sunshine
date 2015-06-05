@@ -1,4 +1,4 @@
-package com.android.sunshine.apiclient;
+package com.android.sunshine.net.http;
 
 import com.android.sunshine.util.logger.AppLogger;
 import com.android.sunshine.util.Util;
@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ApiClient implements IApiClient {
+public class ApiClient implements HttpClient {
     private static final String LOG_TAG = ApiClient.class.getSimpleName();
     private AppLogger logger = AppLogger.getLogger();
 
@@ -31,7 +31,6 @@ public class ApiClient implements IApiClient {
 
             urlConnection.connect();
 
-            // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
@@ -42,22 +41,16 @@ public class ApiClient implements IApiClient {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging.
                 buffer.append(line + "\n");
             }
 
             if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
                 return null;
             }
             response = buffer.toString();
             logger.logVerbose(LOG_TAG, response);
         } catch (IOException e) {
             logger.logError(LOG_TAG, "Error ", e);
-            // If the code didn't successfully get the weather data, there's no point in attemping
-            // to parse it.
             return null;
         } finally {
             if (urlConnection != null) {

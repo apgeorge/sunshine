@@ -1,6 +1,6 @@
 package com.android.sunshine.util;
 
-import com.android.sunshine.util.net.UrlMaker;
+import com.android.sunshine.net.UrlMaker;
 import com.android.sunshine.util.time.Clock;
 
 

@@ -1,6 +1,6 @@
 package com.android.sunshine.service;
 
-import com.android.sunshine.apiclient.IApiClient;
+import com.android.sunshine.net.http.HttpClient;
 import com.android.sunshine.datasource.DataSourceException;
 import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.model.WeatherForecastFactory;
@@ -20,9 +20,9 @@ public class WeatherService {
     public static final String UNITS_PARAM = "units";
     public static final String CNT_PARAM = "cnt";
     private final WeatherForecastFactory weatherForecastFactory;
-    private IApiClient apiClient;
+    private HttpClient apiClient;
 
-    public WeatherService(IApiClient apiClient, WeatherForecastFactory weatherForecastFactory) {
+    public WeatherService(HttpClient apiClient, WeatherForecastFactory weatherForecastFactory) {
         this.apiClient = apiClient;
         this.weatherForecastFactory = weatherForecastFactory;
     }

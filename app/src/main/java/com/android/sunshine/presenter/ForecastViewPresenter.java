@@ -2,28 +2,28 @@ package com.android.sunshine.presenter;
 
 import android.content.Context;
 
-import com.android.sunshine.app.IMainView;
+import com.android.sunshine.app.ForecastView;
 import com.android.sunshine.app.UserPreferences;
 import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.command.CommandFactory;
-import com.android.sunshine.command.IAsyncCommand;
-import com.android.sunshine.command.IOnCommandCompletedListener;
+import com.android.sunshine.command.AsyncCommand;
+import com.android.sunshine.command.OnCommandCompletedListener;
 import com.android.sunshine.datasource.DataSourceException;
 import com.android.sunshine.model.DayWeatherForecast;
 import com.android.sunshine.model.WeatherForecast;
 
 import java.util.ArrayList;
 
-public class MainActivityFragmentPresenter implements IPresenter {
+public class ForecastViewPresenter implements IForecastViewPresenter {
     private final IntentFactory intentFactory;
     private final CommandFactory commandFactory;
     private UserPreferences userPreferences;
     private Context context;
-    private IMainView view;
+    private ForecastView view;
     private WeatherForecast weatherData;
     private ArrayList<String> forecasts;
 
-    public MainActivityFragmentPresenter(IMainView view, IntentFactory intentFactory, UserPreferences userPreferences, Context context, CommandFactory commandFactory) {
+    public ForecastViewPresenter(ForecastView view, IntentFactory intentFactory, UserPreferences userPreferences, Context context, CommandFactory commandFactory) {
         this.view = view;
         this.intentFactory = intentFactory;
         this.userPreferences = userPreferences;
@@ -38,8 +38,8 @@ public class MainActivityFragmentPresenter implements IPresenter {
 
     @Override
     public void fetchWeather() {
-        IAsyncCommand weatherFetcherTask = commandFactory.createWeatherFetcherCommand();
-        weatherFetcherTask.setOnCompletedListener(new OnCommandCompletedListerner());
+        AsyncCommand weatherFetcherTask = commandFactory.createWeatherFetcherCommand();
+        weatherFetcherTask.setOnCompletedListener(new OnFetchWeatherCompletedListerner());
         weatherFetcherTask.doExecute(userPreferences.getZip());
     }
 
@@ -60,7 +60,7 @@ public class MainActivityFragmentPresenter implements IPresenter {
         view.launchDetail(intentFactory.createDetailActivityIntent(context, forecasts.get(day)));
     }
 
-    private class OnCommandCompletedListerner implements IOnCommandCompletedListener {
+    private class OnFetchWeatherCompletedListerner implements OnCommandCompletedListener {
         @Override
         public void OnCommandComplete(WeatherForecast forecast) {
             weatherData = forecast;

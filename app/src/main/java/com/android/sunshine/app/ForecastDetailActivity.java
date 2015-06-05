@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import com.android.sunshine.app.factory.IntentFactory;
 
 
-public class DetailActivity extends ActionBarActivity {
+public class ForecastDetailActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

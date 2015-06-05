@@ -1,4 +1,4 @@
-package com.android.sunshine.util.net;
+package com.android.sunshine.net;
 
 import android.net.Uri;
 

@@ -2,7 +2,7 @@ package com.android.sunshine.service;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.android.sunshine.apiclient.ApiClient;
+import com.android.sunshine.net.http.ApiClient;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -8,8 +8,8 @@ import com.android.sunshine.service.WeatherService;
 
 import org.json.JSONException;
 
-public class WeatherFetcherTask extends AsyncTask<String, Void, WeatherForecast> implements IAsyncCommand {
-    private IOnCommandCompletedListener onCommandCompletedListerner;
+public class WeatherFetcherTask extends AsyncTask<String, Void, WeatherForecast> implements AsyncCommand {
+    private OnCommandCompletedListener onCommandCompletedListerner;
     private WeatherService weatherService;
 
     WeatherFetcherTask(WeatherService weatherService) {
@@ -39,7 +39,7 @@ public class WeatherFetcherTask extends AsyncTask<String, Void, WeatherForecast>
     }
 
     @Override
-    public void setOnCompletedListener(IOnCommandCompletedListener onCommandCompletedListerner) {
+    public void setOnCompletedListener(OnCommandCompletedListener onCommandCompletedListerner) {
         this.onCommandCompletedListerner = onCommandCompletedListerner;
     }
 }

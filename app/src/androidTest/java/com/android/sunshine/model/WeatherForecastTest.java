@@ -5,7 +5,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.android.sunshine.datasource.DataSourceException;
 import com.android.sunshine.datasource.JSONDataSource;
 import com.android.sunshine.util.Util;
-import com.android.sunshine.util.time.MockClock;
+import com.android.sunshine.util.time.StubClock;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
 public class WeatherForecastTest {
-    private  MockClock mockClock;
+    private StubClock stubClock;
     private WeatherForecast weatherForecast;
 
     @Before
@@ -29,9 +29,9 @@ public class WeatherForecastTest {
     }
 
     private void setupMockClock() {
-        mockClock = new MockClock();
-        mockClock.setJulianDayForCurrentTime(2457172);
-        Util.setClock(mockClock);
+        stubClock = new StubClock();
+        stubClock.setJulianDayForCurrentTime(2457172);
+        Util.setClock(stubClock);
     }
 
     @Test

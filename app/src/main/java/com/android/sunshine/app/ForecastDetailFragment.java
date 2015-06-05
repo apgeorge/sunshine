@@ -12,9 +12,9 @@ import android.widget.TextView;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailActivityFragment extends Fragment {
+public class ForecastDetailFragment extends Fragment {
 
-    public DetailActivityFragment() {
+    public ForecastDetailFragment() {
     }
 
     @Override

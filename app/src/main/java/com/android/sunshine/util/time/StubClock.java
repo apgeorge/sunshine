@@ -1,6 +1,6 @@
 package com.android.sunshine.util.time;
 
-public class MockClock extends Clock {
+public class StubClock extends Clock {
 
     private int currentJulianDay;
 

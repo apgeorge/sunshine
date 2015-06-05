@@ -3,7 +3,7 @@ package com.android.sunshine.presenter;
 import android.content.Context;
 import android.content.Intent;
 
-import com.android.sunshine.app.IMainView;
+import com.android.sunshine.app.ForecastView;
 import com.android.sunshine.command.CommandFactory;
 import com.android.sunshine.command.StubWeatherFetcherTask;
 import com.android.sunshine.command.WeatherFetcherTask;
@@ -31,9 +31,9 @@ import static org.mockito.Mockito.when;
 
 public class ForecastFragmentPresenterTest {
 
-    private IMainView view;
+    private ForecastView view;
     private WeatherService weatherService;
-    private MainActivityFragmentPresenter presenter;
+    private ForecastViewPresenter presenter;
     private WeatherFetcherTask weatherFetcherTask;
     private MockClock mockClock;
     private IntentFactory intentFactory;
@@ -44,14 +44,14 @@ public class ForecastFragmentPresenterTest {
     @Before
     public void setUp() throws Exception {
         setupMockClock();
-        view = mock(IMainView.class);
+        view = mock(ForecastView.class);
         weatherService = mock(WeatherService.class);
         weatherFetcherTask = new StubWeatherFetcherTask(weatherService);
         intentFactory = mock(IntentFactory.class);
         userPreferences = mock(UserPreferences.class);
         context = mock(Context.class);
         commandFactory = mock(CommandFactory.class);
-        presenter = new MainActivityFragmentPresenter(view, intentFactory, userPreferences, context, commandFactory);
+        presenter = new ForecastViewPresenter(view, intentFactory, userPreferences, context, commandFactory);
         when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
         when(userPreferences.getZip()).thenReturn("94043");
         when(commandFactory.createWeatherFetcherCommand()).thenReturn(new StubWeatherFetcherTask(weatherService));

@@ -1,6 +1,6 @@
 package com.android.sunshine.service;
 
-import com.android.sunshine.apiclient.IApiClient;
+import com.android.sunshine.net.http.HttpClient;
 import com.android.sunshine.model.WeatherForecastFactory;
 import com.android.sunshine.util.Util;
 import com.android.sunshine.util.testutils.MockClock;
@@ -18,14 +18,14 @@ public class WeatherServiceTest {
 
     public static final String ZIP = "94043";
     private WeatherService weatherService;
-    private IApiClient mockClient;
+    private HttpClient mockClient;
     private MockClock mockClock;
     private WeatherForecastFactory weatherForecastFactory;
 
     @Before
     public void setUp() throws Exception {
         setupMockClock();
-        mockClient = mock(IApiClient.class);
+        mockClient = mock(HttpClient.class);
         weatherForecastFactory = mock(WeatherForecastFactory.class);
         weatherService = new WeatherService(mockClient, weatherForecastFactory);
     }

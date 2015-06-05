@@ -1,6 +1,6 @@
 package com.android.sunshine.presenter;
 
-public interface IPresenter {
+public interface IForecastViewPresenter {
     void initialize();
 
     void fetchWeather();

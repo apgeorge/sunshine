@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.android.sunshine.app.DetailActivity;
+import com.android.sunshine.app.ForecastDetailActivity;
 import com.android.sunshine.app.SettingsActivity;
 
 import org.junit.Assert;
@@ -23,7 +23,7 @@ public class IntentFactoryTest {
                 , "some data");
 
         Assert.assertThat(detailActivityIntent.getStringExtra(Intent.EXTRA_TEXT), is("some data"));
-        Assert.assertThat(detailActivityIntent.getComponent().getShortClassName(), is(DetailActivity.class.getName()));
+        Assert.assertThat(detailActivityIntent.getComponent().getShortClassName(), is(ForecastDetailActivity.class.getName()));
     }
 
     @Test
