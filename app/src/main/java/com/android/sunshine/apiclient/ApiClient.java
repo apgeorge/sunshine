@@ -1,6 +1,6 @@
 package com.android.sunshine.apiclient;
 
-import com.android.sunshine.common.AppLogger;
+import com.android.sunshine.util.logger.AppLogger;
 import com.android.sunshine.util.Util;
 
 import java.io.BufferedReader;

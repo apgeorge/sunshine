@@ -1,4 +1,4 @@
-package com.android.sunshine.common;
+package com.android.sunshine.util.logger;
 
 import android.util.Log;
 
