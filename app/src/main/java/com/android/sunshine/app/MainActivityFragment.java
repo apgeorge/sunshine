@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.android.sunshine.app.factory.IntentFactory;
-import com.android.sunshine.common.UserPreferences;
 import com.android.sunshine.command.CommandFactory;
 import com.android.sunshine.presenter.IPresenter;
 import com.android.sunshine.presenter.MainActivityFragmentPresenter;

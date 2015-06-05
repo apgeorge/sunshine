@@ -8,7 +8,7 @@ import com.android.sunshine.command.CommandFactory;
 import com.android.sunshine.command.StubWeatherFetcherTask;
 import com.android.sunshine.command.WeatherFetcherTask;
 import com.android.sunshine.app.factory.IntentFactory;
-import com.android.sunshine.common.UserPreferences;
+import com.android.sunshine.app.UserPreferences;
 import com.android.sunshine.datasource.DataSourceException;
 import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.service.WeatherService;

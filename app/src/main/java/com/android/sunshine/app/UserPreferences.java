@@ -1,10 +1,8 @@
-package com.android.sunshine.common;
+package com.android.sunshine.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import com.android.sunshine.app.R;
 
 public class UserPreferences {
     private Context context;
