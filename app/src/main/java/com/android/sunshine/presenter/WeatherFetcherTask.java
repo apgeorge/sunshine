@@ -2,29 +2,45 @@ package com.android.sunshine.presenter;
 
 import android.os.AsyncTask;
 
-import com.android.sunshine.app.ICommand;
+import com.android.sunshine.app.IAsyncCommand;
+import com.android.sunshine.model.DataSourceException;
+import com.android.sunshine.model.WeatherForecast;
+import com.android.sunshine.service.WeatherService;
 
-import java.util.List;
+import org.json.JSONException;
 
-public class WeatherFetcherTask extends AsyncTask<String, Void, List<String>> implements ICommand {
-    protected IPresenter presenter;
+public class WeatherFetcherTask extends AsyncTask<String, Void, WeatherForecast> implements IAsyncCommand {
+    private IOnCommandCompletedListener onCommandCompletedListerner;
+    private WeatherService weatherService;
 
-    WeatherFetcherTask() {
+    WeatherFetcherTask(WeatherService weatherService) {
+        this.weatherService = weatherService;
     }
 
     @Override
-    protected List<String> doInBackground(String... strings) {
-        return presenter.getWeather(strings[0]);
+    protected WeatherForecast doInBackground(String... strings) {
+        try {
+            return weatherService.getWeatherData(strings[0]);
+        } catch (DataSourceException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    protected void onPostExecute(List<String> strings) {
-        presenter.updateView(strings);
+    protected void onPostExecute(WeatherForecast weatherForecast) {
+        if (onCommandCompletedListerner != null) onCommandCompletedListerner.OnCommandComplete(weatherForecast);
     }
 
     @Override
-    public void doExecute(IPresenter presenter, String zip) {
-        this.presenter = presenter;
-        execute(zip); //this is not being UTed
+    public void doExecute(String zip) {
+        execute(zip);
+    }
+
+    @Override
+    public void setOnCompletedListener(IOnCommandCompletedListener onCommandCompletedListerner) {
+        this.onCommandCompletedListerner = onCommandCompletedListerner;
     }
 }

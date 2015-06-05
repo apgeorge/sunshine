@@ -2,33 +2,27 @@ package com.android.sunshine.presenter;
 
 import android.content.Context;
 
+import com.android.sunshine.app.IAsyncCommand;
 import com.android.sunshine.app.IMainView;
-import com.android.sunshine.app.ICommand;
 import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.common.UserPreferences;
 import com.android.sunshine.model.DataSourceException;
 import com.android.sunshine.model.DayWeatherForecast;
 import com.android.sunshine.model.WeatherForecast;
-import com.android.sunshine.service.WeatherService;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivityFragmentPresenter implements IPresenter {
     private final IntentFactory intentFactory;
     private final CommandFactory commandFactory;
     private UserPreferences userPreferences;
     private Context context;
-    private final WeatherService weatherService;
     private IMainView view;
     private WeatherForecast weatherData;
     private ArrayList<String> forecasts;
 
-    public MainActivityFragmentPresenter(IMainView view, WeatherService weatherService, IntentFactory intentFactory, UserPreferences userPreferences, Context context, CommandFactory commandFactory) {
+    public MainActivityFragmentPresenter(IMainView view, IntentFactory intentFactory, UserPreferences userPreferences, Context context, CommandFactory commandFactory) {
         this.view = view;
-        this.weatherService = weatherService;
         this.intentFactory = intentFactory;
         this.userPreferences = userPreferences;
         this.context = context;
@@ -42,27 +36,13 @@ public class MainActivityFragmentPresenter implements IPresenter {
 
     @Override
     public void fetchWeather() {
-        ICommand weatherFetcherTask = commandFactory.createWeatherFetcherCommand();
-        weatherFetcherTask.doExecute(this, userPreferences.getZip());
-    }
-
-    @Override
-    public List<String> getWeather(String zip) {
-        ArrayList<String> forecasts = null;
-        try {
-            weatherData = weatherService.getWeatherData(zip);
-            forecasts = getFormattedWeatherData(weatherData);
-        } catch (DataSourceException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return forecasts;
+        IAsyncCommand weatherFetcherTask = commandFactory.createWeatherFetcherCommand();
+        weatherFetcherTask.setOnCompletedListener(new OnCommandCompletedListerner());
+        weatherFetcherTask.doExecute(userPreferences.getZip());
     }
 
     private ArrayList<String> getFormattedWeatherData(WeatherForecast weatherData) {
         forecasts = new ArrayList<>();
-
         try {
             for (DayWeatherForecast day : weatherData.getDays()) {
                 forecasts.add(String.format("%s - %s - %s/%s", day.getDay(), day.getMain(), Math.round(day.getMax()), Math.round(day.getMin())));
@@ -74,13 +54,16 @@ public class MainActivityFragmentPresenter implements IPresenter {
     }
 
     @Override
-    public void updateView(List<String> weatherData) {
-        view.showWeather(weatherData);
-    }
-
-    @Override
     public void selectDay(int day) {
         view.launchDetail(intentFactory.createDetailActivityIntent(context, forecasts.get(day)));
     }
 
+    private class OnCommandCompletedListerner implements IOnCommandCompletedListener {
+        @Override
+        public void OnCommandComplete(WeatherForecast forecast) {
+            weatherData = forecast;
+            forecasts = getFormattedWeatherData(weatherData);
+            view.showWeather(forecasts);
+        }
+    }
 }

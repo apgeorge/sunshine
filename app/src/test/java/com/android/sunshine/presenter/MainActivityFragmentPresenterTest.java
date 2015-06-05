@@ -43,15 +43,15 @@ public class MainActivityFragmentPresenterTest {
         setupMockClock();
         view = mock(IMainView.class);
         weatherService = mock(WeatherService.class);
-        weatherFetcherTask = new StubWeatherFetcherTask();
+        weatherFetcherTask = new StubWeatherFetcherTask(weatherService);
         intentFactory = mock(IntentFactory.class);
         userPreferences = mock(UserPreferences.class);
         context = mock(Context.class);
         commandFactory = mock(CommandFactory.class);
-        presenter = new MainActivityFragmentPresenter(view, weatherService, intentFactory, userPreferences, context, commandFactory);
+        presenter = new MainActivityFragmentPresenter(view, intentFactory, userPreferences, context, commandFactory);
         when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
         when(userPreferences.getZip()).thenReturn("94043");
-        when(commandFactory.createWeatherFetcherCommand()).thenReturn(new StubWeatherFetcherTask());
+        when(commandFactory.createWeatherFetcherCommand()).thenReturn(new StubWeatherFetcherTask(weatherService));
     }
 
     private void setupMockClock() {

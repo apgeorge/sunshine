@@ -15,12 +15,9 @@ import android.widget.ListView;
 
 import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.common.UserPreferences;
-import com.android.sunshine.model.WeatherForecastFactory;
 import com.android.sunshine.presenter.CommandFactory;
 import com.android.sunshine.presenter.IPresenter;
 import com.android.sunshine.presenter.MainActivityFragmentPresenter;
-import com.android.sunshine.service.ApiClient;
-import com.android.sunshine.service.WeatherService;
 
 import java.util.List;
 
@@ -54,7 +51,7 @@ public class MainActivityFragment extends Fragment implements IMainView {
                 presenter.selectDay(i);
             }
         });
-        presenter = new MainActivityFragmentPresenter(this, new WeatherService(new ApiClient(), new WeatherForecastFactory()), new IntentFactory(),new UserPreferences(getActivity()), getActivity(), new CommandFactory());
+        presenter = new MainActivityFragmentPresenter(this, new IntentFactory(),new UserPreferences(getActivity()), getActivity(), new CommandFactory());
         presenter.initialize();
         return rootView;
     }
