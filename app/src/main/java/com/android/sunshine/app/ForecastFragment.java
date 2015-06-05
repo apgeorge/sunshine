@@ -21,15 +21,12 @@ import com.android.sunshine.presenter.MainActivityFragmentPresenter;
 import java.util.List;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MainActivityFragment extends Fragment implements IMainView {
+public class ForecastFragment extends Fragment implements IMainView {
 
     private IPresenter presenter;
     private ListView listView;
 
-    public MainActivityFragment() {
+    public ForecastFragment() {
     }
 
     @Override
