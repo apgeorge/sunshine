@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class ForecastViewPresenter implements IForecastViewPresenter {
     private final IntentFactory intentFactory;
     private final CommandFactory commandFactory;
-    private UserPreferences userPreferences;
-    private Context context;
-    private ForecastView view;
+    private final UserPreferences userPreferences;
+    private final Context context;
+    private final ForecastView view;
     private WeatherForecast weatherData;
     private ArrayList<String> forecasts;
 
@@ -29,11 +29,6 @@ public class ForecastViewPresenter implements IForecastViewPresenter {
         this.userPreferences = userPreferences;
         this.context = context;
         this.commandFactory = commandFactory;
-    }
-
-    @Override
-    public void initialize() {
-        fetchWeather();
     }
 
     @Override

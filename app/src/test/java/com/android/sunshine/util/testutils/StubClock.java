@@ -5,7 +5,7 @@ import com.android.sunshine.util.time.Clock;
 
 import org.joda.time.DateTimeUtils;
 
-public class MockClock extends Clock{
+public class StubClock extends Clock{
     private int currentJulianDay;
 
     @Override

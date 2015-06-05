@@ -3,7 +3,7 @@ package com.android.sunshine.service;
 import com.android.sunshine.net.http.HttpClient;
 import com.android.sunshine.model.WeatherForecastFactory;
 import com.android.sunshine.util.Util;
-import com.android.sunshine.util.testutils.MockClock;
+import com.android.sunshine.util.testutils.StubClock;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class WeatherServiceTest {
     public static final String ZIP = "94043";
     private WeatherService weatherService;
     private HttpClient mockClient;
-    private MockClock mockClock;
+    private StubClock stubClock;
     private WeatherForecastFactory weatherForecastFactory;
 
     @Before
@@ -31,9 +31,9 @@ public class WeatherServiceTest {
     }
 
     private void setupMockClock() {
-        mockClock = new MockClock();
-        mockClock.setJulianDayForCurrentTime(2457172);
-        Util.setClock(mockClock);
+        stubClock = new StubClock();
+        stubClock.setJulianDayForCurrentTime(2457172);
+        Util.setClock(stubClock);
     }
 
     @Test

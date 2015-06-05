@@ -14,7 +14,7 @@ import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.service.WeatherService;
 import com.android.sunshine.util.Util;
 import com.android.sunshine.util.testutils.MapDataSource;
-import com.android.sunshine.util.testutils.MockClock;
+import com.android.sunshine.util.testutils.StubClock;
 import com.fasterxml.jackson.jr.ob.JSON;
 
 import org.json.JSONException;
@@ -35,7 +35,7 @@ public class ForecastFragmentPresenterTest {
     private WeatherService weatherService;
     private ForecastViewPresenter presenter;
     private WeatherFetcherTask weatherFetcherTask;
-    private MockClock mockClock;
+    private StubClock stubClock;
     private IntentFactory intentFactory;
     private UserPreferences userPreferences;
     private Context context;
@@ -58,9 +58,9 @@ public class ForecastFragmentPresenterTest {
     }
 
     private void setupMockClock() {
-        mockClock = new MockClock();
-        mockClock.setJulianDayForCurrentTime(2457172);
-        Util.setClock(mockClock);
+        stubClock = new StubClock();
+        stubClock.setJulianDayForCurrentTime(2457172);
+        Util.setClock(stubClock);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ForecastFragmentPresenterTest {
                 "Wed, Jun 3 - Rain - 19/10",
                 "Thu, Jun 4 - Clear - 21/11"};
 
-        presenter.initialize();
+        presenter.fetchWeather();
 
         verify(view).showWeather(Arrays.asList(expectedWeather));
 
@@ -86,7 +86,7 @@ public class ForecastFragmentPresenterTest {
 
     @Test
     public void shouldCallWeatherServiceOnInitialize() throws DataSourceException, JSONException, IOException {
-        presenter.initialize();
+        presenter.fetchWeather();
 
         verify(weatherService).getWeatherData("94043");
     }
@@ -95,7 +95,7 @@ public class ForecastFragmentPresenterTest {
     public void shouldLaunchDetailView() throws DataSourceException, IOException, JSONException {
         Intent mockDetailActivityIntent = mock(Intent.class);
         when(intentFactory.createDetailActivityIntent(context, "Sun, May 31 - Clear - 26/10")).thenReturn(mockDetailActivityIntent);
-        presenter.initialize();
+        presenter.fetchWeather();
 
         presenter.selectDay(2);
 

@@ -48,7 +48,7 @@ public class ForecastFragment extends Fragment implements ForecastView {
             }
         });
         presenter = new ForecastViewPresenter(this, new IntentFactory(),new UserPreferences(getActivity()), getActivity(), new CommandFactory());
-        presenter.initialize();
+        presenter.fetchWeather();
         return rootView;
     }
 
@@ -77,8 +77,7 @@ public class ForecastFragment extends Fragment implements ForecastView {
     @Override
     public void showWeather(List<String> weatherData) {
         if (weatherData == null) return;
-        ArrayAdapter<String> adapter = createAdapter(weatherData);
-        listView.setAdapter(adapter);
+        listView.setAdapter(createAdapter(weatherData));
     }
 
     @Override
