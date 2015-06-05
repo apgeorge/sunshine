@@ -1,8 +1,7 @@
 package com.android.sunshine.model;
 
-import com.android.sunshine.model.DataSourceException;
-import com.android.sunshine.model.JSONDataSource;
-import com.android.sunshine.model.WeatherForecast;
+import com.android.sunshine.datasource.DataSourceException;
+import com.android.sunshine.datasource.JSONDataSource;
 
 import org.json.JSONException;
 

@@ -1,4 +1,4 @@
-package com.android.sunshine.model;
+package com.android.sunshine.datasource;
 
 import org.json.JSONArray;
 import org.json.JSONException;

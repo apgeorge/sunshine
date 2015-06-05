@@ -1,5 +1,8 @@
 package com.android.sunshine.model;
 
+import com.android.sunshine.datasource.DataSourceException;
+import com.android.sunshine.datasource.IDataSource;
+
 import java.text.SimpleDateFormat;
 
 public class DayWeatherForecast {

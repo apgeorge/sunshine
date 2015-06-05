@@ -1,5 +1,7 @@
 package com.android.sunshine.model;
 
+import com.android.sunshine.datasource.DataSourceException;
+import com.android.sunshine.datasource.IDataSource;
 import com.android.sunshine.util.Util;
 
 import java.util.ArrayList;

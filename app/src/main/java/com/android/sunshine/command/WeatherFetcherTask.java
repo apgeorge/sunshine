@@ -2,7 +2,7 @@ package com.android.sunshine.command;
 
 import android.os.AsyncTask;
 
-import com.android.sunshine.model.DataSourceException;
+import com.android.sunshine.datasource.DataSourceException;
 import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.service.WeatherService;
 

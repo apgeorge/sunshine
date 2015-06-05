@@ -1,6 +1,6 @@
 package com.android.sunshine.service;
 
-import com.android.sunshine.model.DataSourceException;
+import com.android.sunshine.datasource.DataSourceException;
 import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.model.WeatherForecastFactory;
 

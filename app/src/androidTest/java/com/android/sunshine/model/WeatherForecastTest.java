@@ -2,6 +2,8 @@ package com.android.sunshine.model;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.android.sunshine.datasource.DataSourceException;
+import com.android.sunshine.datasource.JSONDataSource;
 import com.android.sunshine.util.Util;
 import com.android.sunshine.util.time.MockClock;
 
