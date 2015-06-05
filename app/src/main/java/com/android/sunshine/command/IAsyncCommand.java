@@ -1,6 +1,4 @@
-package com.android.sunshine.app;
-
-import com.android.sunshine.presenter.IOnCommandCompletedListener;
+package com.android.sunshine.command;
 
 public interface IAsyncCommand {
     void doExecute(String zip);

@@ -2,13 +2,15 @@ package com.android.sunshine.presenter;
 
 import android.content.Context;
 
-import com.android.sunshine.app.IAsyncCommand;
+import com.android.sunshine.command.IAsyncCommand;
 import com.android.sunshine.app.IMainView;
+import com.android.sunshine.command.CommandFactory;
 import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.common.UserPreferences;
 import com.android.sunshine.model.DataSourceException;
 import com.android.sunshine.model.DayWeatherForecast;
 import com.android.sunshine.model.WeatherForecast;
+import com.android.sunshine.command.IOnCommandCompletedListener;
 
 import java.util.ArrayList;
 

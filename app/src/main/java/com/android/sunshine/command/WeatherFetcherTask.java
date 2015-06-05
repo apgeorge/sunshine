@@ -1,8 +1,7 @@
-package com.android.sunshine.presenter;
+package com.android.sunshine.command;
 
 import android.os.AsyncTask;
 
-import com.android.sunshine.app.IAsyncCommand;
 import com.android.sunshine.model.DataSourceException;
 import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.service.WeatherService;

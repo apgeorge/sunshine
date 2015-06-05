@@ -1,4 +1,4 @@
-package com.android.sunshine.presenter;
+package com.android.sunshine.command;
 
 import com.android.sunshine.model.WeatherForecast;
 
