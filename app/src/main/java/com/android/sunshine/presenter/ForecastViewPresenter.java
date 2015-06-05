@@ -29,7 +29,7 @@ public class ForecastViewPresenter implements IForecastViewPresenter {
     @Override
     public void fetchWeather() {
         AsyncCommand weatherFetcherTask = commandFactory.createWeatherFetcherCommand();
-        weatherFetcherTask.setOnCompletedListener(new OnFetchWeatherCompletedListerner());
+        weatherFetcherTask.setOnCompletedListener(new OnFetchWeatherCompletedListener());
         weatherFetcherTask.doExecute(userPreferences.getZip());
     }
 
@@ -38,7 +38,7 @@ public class ForecastViewPresenter implements IForecastViewPresenter {
         view.launchDetail(intentFactory.createDetailActivityIntent(context, forecastViewModel.getForecast().get(day)));
     }
 
-    private class OnFetchWeatherCompletedListerner implements OnCommandCompletedListener {
+    private class OnFetchWeatherCompletedListener implements OnCommandCompletedListener {
         @Override
         public void OnCommandComplete(WeatherForecast forecast) {
             forecastViewModel = new ForecastViewModel(forecast);

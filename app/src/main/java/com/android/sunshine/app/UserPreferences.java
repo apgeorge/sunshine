@@ -13,7 +13,6 @@ public class UserPreferences {
 
     public String getZip() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String location = preferences.getString(context.getString(R.string.pref_location_key), context.getString(R.string.pref_location_default_value));
-        return location;
+        return preferences.getString(context.getString(R.string.pref_location_key), context.getString(R.string.pref_location_default_value));
     }
 }

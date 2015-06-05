@@ -19,7 +19,6 @@ public class WeatherServiceTest {
     public static final String ZIP = "94043";
     private WeatherService weatherService;
     private HttpClient mockClient;
-    private StubClock stubClock;
     private WeatherForecastFactory weatherForecastFactory;
 
     @Before
@@ -31,7 +30,7 @@ public class WeatherServiceTest {
     }
 
     private void setupMockClock() {
-        stubClock = new StubClock();
+        StubClock stubClock = new StubClock();
         stubClock.setJulianDayForCurrentTime(2457172);
         Util.setClock(stubClock);
     }

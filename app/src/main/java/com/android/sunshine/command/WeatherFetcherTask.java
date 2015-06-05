@@ -20,9 +20,7 @@ public class WeatherFetcherTask extends AsyncTask<String, Void, WeatherForecast>
     protected WeatherForecast doInBackground(String... strings) {
         try {
             return weatherService.getWeatherData(strings[0]);
-        } catch (DataSourceException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (DataSourceException | JSONException e) {
             e.printStackTrace();
         }
         return null;
@@ -39,7 +37,7 @@ public class WeatherFetcherTask extends AsyncTask<String, Void, WeatherForecast>
     }
 
     @Override
-    public void setOnCompletedListener(OnCommandCompletedListener onCommandCompletedListerner) {
-        this.onCommandCompletedListerner = onCommandCompletedListerner;
+    public void setOnCompletedListener(OnCommandCompletedListener onCommandCompletedListener) {
+        this.onCommandCompletedListerner = onCommandCompletedListener;
     }
 }

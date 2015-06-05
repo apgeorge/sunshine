@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.android.sunshine.app.ForecastView;
+import com.android.sunshine.app.UserPreferences;
+import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.command.CommandFactory;
 import com.android.sunshine.command.StubWeatherFetcherTask;
-import com.android.sunshine.command.WeatherFetcherTask;
-import com.android.sunshine.app.factory.IntentFactory;
-import com.android.sunshine.app.UserPreferences;
 import com.android.sunshine.datasource.DataSourceException;
 import com.android.sunshine.model.WeatherForecast;
 import com.android.sunshine.service.WeatherService;
@@ -29,12 +28,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-public class ForecastFragmentPresenterTest {
+public class ForecastViewPresenterTest {
 
     private ForecastView view;
     private WeatherService weatherService;
     private ForecastViewPresenter presenter;
-    private WeatherFetcherTask weatherFetcherTask;
     private StubClock stubClock;
     private IntentFactory intentFactory;
     private UserPreferences userPreferences;
@@ -46,7 +44,6 @@ public class ForecastFragmentPresenterTest {
         setupMockClock();
         view = mock(ForecastView.class);
         weatherService = mock(WeatherService.class);
-        weatherFetcherTask = new StubWeatherFetcherTask(weatherService);
         intentFactory = mock(IntentFactory.class);
         userPreferences = mock(UserPreferences.class);
         context = mock(Context.class);
@@ -80,8 +77,7 @@ public class ForecastFragmentPresenterTest {
     }
 
     private WeatherForecast getExpectedWeatherForecast() throws DataSourceException, JSONException, IOException {
-        WeatherForecast weatherForecast = new WeatherForecast(new MapDataSource(JSON.std.<String>mapFrom(getWeatherJson())));
-        return weatherForecast;
+        return new WeatherForecast(new MapDataSource(JSON.std.<String>mapFrom(getWeatherJson())));
     }
 
     @Test
@@ -103,8 +99,7 @@ public class ForecastFragmentPresenterTest {
     }
 
     private String getWeatherJson() {
-        String json = "\n" +
+        return "\n" +
                 "{\"cod\":\"200\",\"message\":0.0259,\"city\":{\"id\":0,\"name\":\"Mountain View\",\"country\":\"US\",\"coord\":{\"lat\":37.4056,\"lon\":-122.0775}},\"cnt\":7,\"list\":[{\"dt\":1432843200,\"temp\":{\"day\":7.86,\"min\":7.86,\"max\":7.86,\"night\":7.86,\"eve\":7.86,\"morn\":7.86},\"pressure\":989.86,\"humidity\":96,\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"sky is clear\",\"icon\":\"01n\"}],\"speed\":0.92,\"deg\":270,\"clouds\":0},{\"dt\":1432929600,\"temp\":{\"day\":24.04,\"min\":9.69,\"max\":24.06,\"night\":9.69,\"eve\":19.55,\"morn\":10.69},\"pressure\":988.96,\"humidity\":65,\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"sky is clear\",\"icon\":\"01d\"}],\"speed\":1.4,\"deg\":257,\"clouds\":0},{\"dt\":1433016000,\"temp\":{\"day\":26.41,\"min\":10.14,\"max\":26.41,\"night\":10.14,\"eve\":20.94,\"morn\":12.92},\"pressure\":987.4,\"humidity\":60,\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"sky is clear\",\"icon\":\"02d\"}],\"speed\":1.41,\"deg\":246,\"clouds\":8},{\"dt\":1433102400,\"temp\":{\"day\":17.46,\"min\":9.89,\"max\":19.88,\"night\":12.5,\"eve\":19.88,\"morn\":9.89},\"pressure\":1008.47,\"humidity\":0,\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\":\"10d\"}],\"speed\":1.63,\"deg\":283,\"clouds\":20},{\"dt\":1433188800,\"temp\":{\"day\":17.98,\"min\":10.07,\"max\":19.35,\"night\":13.61,\"eve\":19.35,\"morn\":10.07},\"pressure\":1012.06,\"humidity\":0,\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\":\"10d\"}],\"speed\":1.73,\"deg\":282,\"clouds\":19},{\"dt\":1433275200,\"temp\":{\"day\":17.31,\"min\":10.2,\"max\":19.38,\"night\":14.13,\"eve\":19.38,\"morn\":10.2},\"pressure\":1014.65,\"humidity\":0,\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\":\"10d\"}],\"speed\":3.67,\"deg\":331,\"clouds\":0},{\"dt\":1433361600,\"temp\":{\"day\":19.08,\"min\":11,\"max\":21.33,\"night\":14.11,\"eve\":21.33,\"morn\":11},\"pressure\":1007.22,\"humidity\":0,\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"sky is clear\",\"icon\":\"01d\"}],\"speed\":3.07,\"deg\":316,\"clouds\":0}]}\n";
-        return json;
     }
 }
