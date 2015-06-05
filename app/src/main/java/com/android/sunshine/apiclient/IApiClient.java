@@ -1,4 +1,4 @@
-package com.android.sunshine.service;
+package com.android.sunshine.apiclient;
 
 import java.util.HashMap;
 

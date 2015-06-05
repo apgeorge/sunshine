@@ -1,5 +1,6 @@
 package com.android.sunshine.service;
 
+import com.android.sunshine.apiclient.IApiClient;
 import com.android.sunshine.model.WeatherForecastFactory;
 import com.android.sunshine.util.Util;
 import com.android.sunshine.util.testutils.MockClock;

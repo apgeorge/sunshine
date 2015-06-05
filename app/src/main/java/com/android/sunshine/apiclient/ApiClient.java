@@ -1,4 +1,4 @@
-package com.android.sunshine.service;
+package com.android.sunshine.apiclient;
 
 import com.android.sunshine.common.AppLogger;
 import com.android.sunshine.util.Util;
