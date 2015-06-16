@@ -48,7 +48,7 @@ public class ForecastViewPresenterTest {
         userPreferences = mock(UserPreferences.class);
         context = mock(Context.class);
         commandFactory = mock(CommandFactory.class);
-        presenter = new ForecastViewPresenter(view, intentFactory, userPreferences, context, commandFactory);
+        presenter = new ForecastViewPresenter(view, intentFactory, userPreferences, commandFactory);
         when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
         when(userPreferences.getZip()).thenReturn("94043");
         when(commandFactory.createWeatherFetcherCommand()).thenReturn(new StubWeatherFetcherTask(weatherService));
@@ -90,7 +90,7 @@ public class ForecastViewPresenterTest {
     @Test
     public void shouldLaunchDetailView() throws DataSourceException, IOException, JSONException {
         Intent mockDetailActivityIntent = mock(Intent.class);
-        when(intentFactory.createDetailActivityIntent(context, "Sun, May 31 - Clear - 26/10")).thenReturn(mockDetailActivityIntent);
+        when(intentFactory.createDetailActivityIntent("Sun, May 31 - Clear - 26/10")).thenReturn(mockDetailActivityIntent);
         presenter.fetchWeather();
 
         presenter.selectDay(2);

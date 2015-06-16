@@ -18,9 +18,7 @@ public class IntentFactoryTest {
 
     @Test
     public void shouldCreateDetailActivityIntent() throws Exception {
-        Intent detailActivityIntent = new IntentFactory().createDetailActivityIntent(
-                InstrumentationRegistry.getInstrumentation().getContext()
-                , "some data");
+        Intent detailActivityIntent = new IntentFactory(InstrumentationRegistry.getInstrumentation().getContext()).createDetailActivityIntent("some data");
 
         Assert.assertThat(detailActivityIntent.getStringExtra(Intent.EXTRA_TEXT), is("some data"));
         Assert.assertThat(detailActivityIntent.getComponent().getShortClassName(), is(ForecastDetailActivity.class.getName()));
@@ -28,8 +26,7 @@ public class IntentFactoryTest {
 
     @Test
     public void shouldCreateSettingsActivityIntent() throws Exception {
-        Intent settings = new IntentFactory().createSettingsIntent(
-                InstrumentationRegistry.getInstrumentation().getContext());
+        Intent settings = new IntentFactory(InstrumentationRegistry.getInstrumentation().getContext()).createSettingsIntent();
 
         Assert.assertThat(settings.getComponent().getShortClassName(), is(SettingsActivity.class.getName()));
     }

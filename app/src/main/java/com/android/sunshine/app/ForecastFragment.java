@@ -47,7 +47,7 @@ public class ForecastFragment extends Fragment implements ForecastView {
                 presenter.selectDay(i);
             }
         });
-        presenter = new ForecastViewPresenter(this, new IntentFactory(),new UserPreferences(getActivity()), getActivity(), new CommandFactory());
+        presenter = new ForecastViewPresenter(this, new IntentFactory(getActivity()),new UserPreferences(getActivity()), new CommandFactory());
         presenter.fetchWeather();
         return rootView;
     }
