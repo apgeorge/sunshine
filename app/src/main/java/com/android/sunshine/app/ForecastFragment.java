@@ -1,6 +1,5 @@
 package com.android.sunshine.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.command.CommandFactory;
 import com.android.sunshine.presenter.IForecastViewPresenter;
 import com.android.sunshine.presenter.ForecastViewPresenter;
@@ -47,7 +45,7 @@ public class ForecastFragment extends Fragment implements ForecastView {
                 presenter.selectDay(i);
             }
         });
-        presenter = new ForecastViewPresenter(this, new IntentFactory(getActivity()),new UserPreferences(getActivity()), new CommandFactory());
+        presenter = new ForecastViewPresenter(this, new UserPreferences(getActivity()), new CommandFactory(), new Navigator(getActivity()));
         presenter.fetchWeather();
         return rootView;
     }
@@ -81,8 +79,8 @@ public class ForecastFragment extends Fragment implements ForecastView {
     }
 
     @Override
-    public void launchDetail(Intent detailActivityIntent) {
-        startActivity(detailActivityIntent);
+    public void launchDetail(String data) {
+//        navigator.launchDetail(data);
     }
 
 

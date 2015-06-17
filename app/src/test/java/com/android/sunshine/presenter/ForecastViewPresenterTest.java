@@ -1,9 +1,9 @@
 package com.android.sunshine.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.android.sunshine.app.ForecastView;
+import com.android.sunshine.app.Navigator;
 import com.android.sunshine.app.UserPreferences;
 import com.android.sunshine.app.factory.IntentFactory;
 import com.android.sunshine.command.CommandFactory;
@@ -38,6 +38,7 @@ public class ForecastViewPresenterTest {
     private UserPreferences userPreferences;
     private Context context;
     private CommandFactory commandFactory;
+    private Navigator navigator;
 
     @Before
     public void setUp() throws Exception {
@@ -48,7 +49,8 @@ public class ForecastViewPresenterTest {
         userPreferences = mock(UserPreferences.class);
         context = mock(Context.class);
         commandFactory = mock(CommandFactory.class);
-        presenter = new ForecastViewPresenter(view, intentFactory, userPreferences, commandFactory);
+        navigator = mock(Navigator.class);
+        presenter = new ForecastViewPresenter(view, userPreferences, commandFactory, navigator);
         when(weatherService.getWeatherData("94043")).thenReturn(getExpectedWeatherForecast());
         when(userPreferences.getZip()).thenReturn("94043");
         when(commandFactory.createWeatherFetcherCommand()).thenReturn(new StubWeatherFetcherTask(weatherService));
@@ -89,13 +91,11 @@ public class ForecastViewPresenterTest {
 
     @Test
     public void shouldLaunchDetailView() throws DataSourceException, IOException, JSONException {
-        Intent mockDetailActivityIntent = mock(Intent.class);
-        when(intentFactory.createDetailActivityIntent("Sun, May 31 - Clear - 26/10")).thenReturn(mockDetailActivityIntent);
         presenter.fetchWeather();
 
         presenter.selectDay(2);
 
-        verify(view).launchDetail(mockDetailActivityIntent);
+        verify(navigator).launchDetail("Sun, May 31 - Clear - 26/10");
     }
 
     private String getWeatherJson() {
