@@ -9,16 +9,16 @@ import java.util.List;
 
 public class WeatherForecast {
 
-    private final IDataSource weatherJson;
+    private final IDataSource weather;
     private final List<DayWeatherForecast> dayWeatherForecasts;
 
     public WeatherForecast(IDataSource dataSource) throws DataSourceException {
-        this.weatherJson = dataSource;
+        this.weather = dataSource;
         dayWeatherForecasts = getDayWeatherForecasts();
     }
 
     public String getCity() throws DataSourceException {
-        return weatherJson.getObject("city").getString("name");
+        return weather.getObject("city").getString("name");
     }
 
     public List<DayWeatherForecast> getDays() throws DataSourceException {
@@ -29,7 +29,7 @@ public class WeatherForecast {
         int julianStartDay = Util.getClock().getJulianDayForCurrentTime();
 
         List<DayWeatherForecast> dayWeatherForecasts = new ArrayList<>();
-        List<IDataSource> days = weatherJson.getArrayObject("list");
+        List<IDataSource> days = weather.getArrayObject("list");
         for (IDataSource day : days) {
             int julianDay = julianStartDay++;
             dayWeatherForecasts.add(new DayWeatherForecast(day, Util.getClock().getOffsetFromEpochForJulianDay(julianDay)));
