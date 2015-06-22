@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 22
@@ -18,10 +19,37 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+                minifyEnabled false
+                testCoverageEnabled = true
+        }
     }
     packagingOptions {
         exclude 'LICENSE.txt'
     }
+}
+
+sonarqube {
+    properties { 
+        /* property "sonar.host.url", "http://127.0.0.1:9000" */ 
+        /* property "sonar.jdbc.url", "my.jdbc.url" */ 
+        /* property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver" */ 
+        /* property "sonar.jdbc.username", "myuser" */ 
+        /* property "sonar.jdbc.password", "*****" */ 
+        /* property "sonar.login", "admin" */ 
+        /* property "sonar.password", "admin" */ 
+        property "sonar.sources", "src/main"
+        property "sonar.tests", "src/test"
+        property "sonar.junit.reportsPath", "build/test-results/debug"
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.java.binaries", "build/intermediates"
+        property "sonar.jacoco.reportPath", "build/jacoco/testDebug.exec"
+        property "sonar.language", "java"
+        /* property "sonar.projectKey", "my.group:project-key" */ 
+        /* property "sonar.projectName", "MyProject" */ 
+        /* property "sonar.projectVersion", "1.0-SNAPSHOT" */ 
+        /* property "sonar.projectDescription", "My Project description" */ 
+        }
 }
 
 dependencies {
@@ -32,4 +60,40 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.2'
     testCompile 'com.fasterxml.jackson.jr:jackson-jr-objects:2.6.0-rc1'
     testCompile 'joda-time:joda-time:2.8'
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+}
+
+def coverageSourceDirs = [
+        'src/main/java'
+]
+
+task coverage(type:JacocoReport, dependsOn: "testDebug") {
+    group = "Reporting"
+    description = "Generate unit test coverage reports"
+    classDirectories = fileTree(
+            dir: 'build/intermediates/classes/debug',
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*$ViewInjector*.*',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*']
+    )
+    sourceDirectories = files(coverageSourceDirs)
+    additionalSourceDirs = files(coverageSourceDirs)
+    executionData = files('build/jacoco/testDebug.exec')
+
+    reports {
+        xml {
+            enabled = true
+            destination = "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+        }
+        csv.enabled false
+        html {
+            enabled = true
+            destination = "${project.buildDir}/reports/jacoco"
+        }
+    }
 }
